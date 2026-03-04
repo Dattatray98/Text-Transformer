@@ -1,6 +1,5 @@
 import * as vscode from "vscode";
 import { SummaryModel } from "../config/Model";
-import { VscOctoface } from "react-icons/vsc";
 
 export function registerModelCommand(context: vscode.ExtensionContext) {
     const AskOllama = vscode.commands.registerCommand(
@@ -16,7 +15,9 @@ export function registerModelCommand(context: vscode.ExtensionContext) {
 
             const finalPrompt = `Summarize this content professionally with headings and bullet points, also show the content line range:\n\n${fileContent}`;
 
-            const response = await SummaryModel(fileContent);
+            vscode.window.showInformationMessage('Started generation');
+
+            const response = await SummaryModel(finalPrompt);
 
             if(!response){
                 vscode.window.showErrorMessage("failed to generate summary");
@@ -41,8 +42,6 @@ export function registerModelCommand(context: vscode.ExtensionContext) {
             await vscode.window.showTextDocument(doc);
 
             vscode.window.showInformationMessage("summary file created.");
-
-
         }
     );
 

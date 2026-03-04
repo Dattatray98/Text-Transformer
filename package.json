@@ -20,8 +20,36 @@
       {
         "command": "Summaries-with-AI",
         "title": "summaries with AI"
+      },
+      {
+        "command": "ai-tools.openChat",
+        "title": "Open AI Chat"
       }
-    ]
+    ],
+    "viewsContainers": {
+      "secondarySidebar": [
+        {
+          "id": "ai-tools",
+          "title": "AI Tools",
+          "icon": "src/resources/artificial-intelligence.png"
+        }
+      ]
+    },
+    "views": {
+      "ai-tools": [
+        {
+          "id": "aiToolsView",
+          "name": "AI Commands",
+          "icon": "src/resources/artificial-intelligence.png"
+        },
+        {
+          "id": "aiChatView",
+          "name": "Chat",
+          "type": "webview",
+          "icon": "src/resources/artificial-intelligence.png"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
