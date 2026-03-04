@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 export function toUpperCase(text: string): string {
     return text.toUpperCase();
 }
@@ -19,12 +18,4 @@ export function removeSpaces(text: string): string {
 export function countWords(text: string): string {
     const words = text.trim().split(/\s+/).length;
     return `Word Count : ${words}`;
-=======
-export function toUpperCase(text : string ): string {
-    return text.toUpperCase();
-}
-
-export function toLowerCase(text: string) : string {
-    return text.toLowerCase();
->>>>>>> 6522f1d5ca8dc393350a66ed0c9ffc30f88f355e
 }
