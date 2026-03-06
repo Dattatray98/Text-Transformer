@@ -15,9 +15,11 @@ body {
 
 
 .Chat-container {
-    border: 1px solid red;
-    width: 99%;
+    max-width: 100vh;
     max-height: 80vh;
+    flex: 1;
+    padding-inline: 20vh;
+    border: 2px solid green;
     justify-content: center;
     overflow-y: scroll;
     text-align: center;
