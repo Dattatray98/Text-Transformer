@@ -27,7 +27,7 @@
       }
     ],
     "viewsContainers": {
-      "secondarySidebar": [
+      "panel": [
         {
           "id": "ai-tools",
           "title": "AI Tools",

@@ -1,12 +1,13 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
 import * as path from "path";
+import { SummaryModel } from "../config/Model";
 
 export class ChatViewProvider implements vscode.WebviewViewProvider {
 
   public static readonly viewType = "aiChatView";
 
-  constructor(private context: vscode.ExtensionContext) {}
+  constructor(private context: vscode.ExtensionContext) { }
 
   resolveWebviewView(webviewView: vscode.WebviewView) {
 
@@ -16,34 +17,57 @@ export class ChatViewProvider implements vscode.WebviewViewProvider {
       enableScripts: true,
       localResourceRoots: [
         vscode.Uri.file(
-          path.join(this.context.extensionPath, "dist-webview")
+          path.join(this.context.extensionPath, "src", "WebView")
         )
       ]
     };
 
-    const htmlPath = path.join(
+
+    const webviewPath = path.join(
       this.context.extensionPath,
-      "dist-webview",
-      "index.html"
+      "src",
+      "WebView"
     );
 
+    const htmlPath = path.join(webviewPath, "chat.html");
+
+    
+    const cssUri = webview.asWebviewUri(
+      vscode.Uri.file(path.join(webviewPath, "chat.css"))
+    );
+    
+    const jsUri = webview.asWebviewUri(
+      vscode.Uri.file(path.join(webviewPath, "chat.js"))
+    );
+    
     let html = fs.readFileSync(htmlPath, "utf8");
 
-    // Convert asset paths to webview-safe paths
-    html = html.replace(
-      /src="(.*?)"/g,
-      (_, src) => `src="${webview.asWebviewUri(
-        vscode.Uri.file(path.join(this.context.extensionPath, "dist-webview", src))
-      )}"`
-    );
+    html = html
+      .replace("chat.css", cssUri.toString())
+      .replace("chat.js", jsUri.toString());
+
+
 
     webview.html = html;
+
+
+    const editor = vscode.window.activeTextEditor;
+
+    if(!editor){
+      vscode.window.showInformationMessage("No active editor found.");
+      return;
+    }
+
+    const fileContent = editor.document.getText();
 
     webview.onDidReceiveMessage(async (message) => {
 
       if (message.command === "chat") {
 
-        const response = `AI: ${message.text}`;
+        const prompt = fileContent + message.text;
+
+
+        const response = await SummaryModel(prompt);
 
         webview.postMessage({
           command: "response",
@@ -51,7 +75,6 @@ export class ChatViewProvider implements vscode.WebviewViewProvider {
         });
 
       }
-
     });
 
   }
