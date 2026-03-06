@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { countWords, removeSpaces, ReverceText, toLowerCase, toUpperCase } from "../services/textService";
 import { log } from "../utils/logger";
+import { ScanWorkspace } from "../services/ScanDirectory";
 
 export function registerUppercaseCommand(context: vscode.ExtensionContext) {
 
@@ -56,3 +57,6 @@ export function registerUppercaseCommand(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
 
 }
+
+
+

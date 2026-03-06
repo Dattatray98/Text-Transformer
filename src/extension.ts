@@ -1,15 +1,17 @@
 import * as vscode from "vscode";
-import {  registerUppercaseCommand } from "./commands/uppercaseCommand";
+import { registerUppercaseCommand } from "./commands/uppercaseCommand";
 import { registerModelCommand } from "./commands/modelcommand";
 import { AIToolsProvider } from "./views/AIToolsProvider";
 import { ChatViewProvider } from "./views/ChatViewProvider";
 import { registerOpenChatCommand } from "./commands/openChat";
+import { registerScanDirectoryCommand } from "./commands/RagPipeline";
 
 
 export function activate(context: vscode.ExtensionContext) {
 	registerUppercaseCommand(context);
 	registerModelCommand(context);
 	registerOpenChatCommand(context);
+	registerScanDirectoryCommand(context);
 
 	const provider = new AIToolsProvider();
 
