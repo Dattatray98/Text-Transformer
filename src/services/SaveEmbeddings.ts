@@ -1,17 +1,15 @@
-export async function SaveEmbeddings(db: any, rows: Array<any>) {
+export async function SaveEmbeddings(db: any, rows: any[]) {
+
     let table;
 
     try {
         table = await db.openTable("code_chunks");
     } catch {
-        table = await db.createTable("code_chunks", [
-            {
-                id: "init",
-                path: "init",
-                text: "init",
-                embedding: new Float32Array(768)
-            }
-        ]);
+
+        // create table using real rows so LanceDB learns schema correctly
+        table = await db.createTable("code_chunks", rows);
+
+        return; // table already populated
     }
 
     await table.add(rows);

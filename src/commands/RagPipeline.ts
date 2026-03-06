@@ -18,4 +18,7 @@ export function registerScanDirectoryCommand(context: vscode.ExtensionContext) {
             vscode.window.showInformationMessage("Process Completed");
         }
     );
+
+    context.subscriptions.push(disposable);
+
 }

@@ -22,7 +22,7 @@ export async function CreateEmbeddings(Chunks: Chunk[]) {
             id: `chunk_${count}`,
             path: chunk.path,
             text: chunk.text,
-            embedding: response.embeddings,
+            embedding: response.embeddings[0],
         });
 
         count += 1;
@@ -30,3 +30,16 @@ export async function CreateEmbeddings(Chunks: Chunk[]) {
 
     return embeddings;
 }
+
+
+
+
+export async function CreateQueryEmbeddings(Query: string) {
+    const response = await ollama.embed({
+        model: 'nomic-embed-text',
+        input: Query
+    });
+
+    return response.embeddings[0];
+}
+

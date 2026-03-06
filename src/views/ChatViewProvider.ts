@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import * as fs from "fs";
 import * as path from "path";
 import { SummaryModel } from "../config/Model";
+import { WorkSpaceAssistant } from "../config/WorkSpaceAssistant";
 
 export class ChatViewProvider implements vscode.WebviewViewProvider {
 
@@ -64,10 +65,11 @@ export class ChatViewProvider implements vscode.WebviewViewProvider {
 
       if (message.command === "chat") {
 
-        const prompt = fileContent + message.text;
+        const prompt = message.text;
 
+        const workspacePrompt:any = await WorkSpaceAssistant(prompt);
 
-        const response = await SummaryModel(prompt);
+        const response = await SummaryModel(workspacePrompt);
 
         webview.postMessage({
           command: "response",
