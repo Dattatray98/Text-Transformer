@@ -12,7 +12,7 @@ export async function InitDatabase() {
         fs.mkdirSync(indexpath);
     }
 
-    const db = lancedb.connect(indexpath);
+    const db = await lancedb.connect(indexpath);
 
     vscode.window.showInformationMessage("Create Database");
     return db;

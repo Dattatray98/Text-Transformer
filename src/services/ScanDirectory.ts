@@ -6,7 +6,8 @@ const IgnoreFolders = new Set([
     "dist",
     "build",
     "coverage",
-    "__pycache__"
+    "__pycache__",
+    ".ai-index"
 ]);
 
 

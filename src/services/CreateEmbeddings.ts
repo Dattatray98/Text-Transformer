@@ -11,13 +11,21 @@ interface Chunk {
 
 export async function CreateEmbeddings(Chunks: Chunk[]) {
     const embeddings = [];
+    let count = 0;
     for (const chunk of Chunks) {
         const response = await ollama.embed({
             model: "nomic-embed-text",
             input: chunk.text
         });
 
-        embeddings.push(response.embeddings);
+        embeddings.push({
+            id: `chunk_${count}`,
+            path: chunk.path,
+            text: chunk.text,
+            embedding: response.embeddings,
+        });
+
+        count += 1;
     }
 
     return embeddings;
