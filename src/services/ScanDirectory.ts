@@ -61,7 +61,7 @@ async function processDirectory(uri: vscode.Uri) {
         }
 
 
-        const childUri = vscode.Uri.joinPath(uri, name);
+        const childUri = vscode.Uri.file(uri.fsPath + "/" + name);
 
         if (type === vscode.FileType.Directory) {
             await processDirectory(childUri);

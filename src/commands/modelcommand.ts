@@ -19,20 +19,20 @@ export function registerModelCommand(context: vscode.ExtensionContext) {
 
             const response = await SummaryModel(finalPrompt);
 
-            if(!response){
+            if (!response) {
                 vscode.window.showErrorMessage("failed to generate summary");
                 return;
             }
 
             const workspaceFolders = vscode.workspace.workspaceFolders;
 
-            if(!workspaceFolders){
+            if (!workspaceFolders) {
                 vscode.window.showInformationMessage("Open a workspace folder first.");
                 return;
             }
 
             const workspacePath = workspaceFolders[0].uri;
-            const fileUri = vscode.Uri.joinPath(workspacePath, "README.md");
+            const fileUri = vscode.Uri.file(workspacePath.fsPath + "/" + "README.md");
 
             const encoder = new TextEncoder();
             const data = encoder.encode(response);
