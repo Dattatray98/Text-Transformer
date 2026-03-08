@@ -28,6 +28,10 @@
       {
         "command": "Scan-Directory",
         "title": "Scan Directory"
+      }, 
+      {
+        "command": "testCommand",
+        "title": "Test-command"
       }
     ],
     "viewsContainers": {

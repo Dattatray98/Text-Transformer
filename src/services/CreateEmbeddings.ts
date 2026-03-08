@@ -1,6 +1,5 @@
 import ollama from "ollama";
 
-
 interface Chunk {
     path: string;
     startLine: number;
@@ -8,38 +7,48 @@ interface Chunk {
     text: string;
 }
 
+export async function CreateEmbeddings(chunks: Chunk[]) {
 
-export async function CreateEmbeddings(Chunks: Chunk[]) {
-    const embeddings = [];
+    const rows = [];
     let count = 0;
-    for (const chunk of Chunks) {
+
+    for (const chunk of chunks) {
+
+        const embeddingInput = `
+File: ${chunk.path}
+Lines: ${chunk.startLine}-${chunk.endLine}
+
+${chunk.text}
+`;
+
         const response = await ollama.embed({
             model: "nomic-embed-text",
-            input: chunk.text
+            input: embeddingInput
         });
 
-        embeddings.push({
+        rows.push({
             id: `chunk_${count}`,
             path: chunk.path,
+            startLine: chunk.startLine,
+            endLine: chunk.endLine,
             text: chunk.text,
-            embedding: response.embeddings[0],
+            embedding: response.embeddings[0]
         });
 
-        count += 1;
+        count++;
     }
 
-    return embeddings;
+    return rows;
 }
 
 
 
+export async function CreateQueryEmbeddings(query: string) {
 
-export async function CreateQueryEmbeddings(Query: string) {
     const response = await ollama.embed({
-        model: 'nomic-embed-text',
-        input: Query
+        model: "nomic-embed-text",
+        input: query
     });
 
     return response.embeddings[0];
 }
-

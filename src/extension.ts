@@ -5,6 +5,7 @@ import { AIToolsProvider } from "./views/AIToolsProvider";
 import { ChatViewProvider } from "./views/ChatViewProvider";
 import { registerOpenChatCommand } from "./commands/openChat";
 import { registerScanDirectoryCommand } from "./commands/RagPipeline";
+import { registerTestCommand } from "./commands/testCommands";
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -12,6 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
 	registerModelCommand(context);
 	registerOpenChatCommand(context);
 	registerScanDirectoryCommand(context);
+	registerTestCommand(context);
 
 	const provider = new AIToolsProvider();
 

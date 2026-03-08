@@ -55,7 +55,7 @@ async function processDirectory(uri: vscode.Uri) {
     const entries = await vscode.workspace.fs.readDirectory(uri);
 
     for (const [name, type] of entries) {
-
+        
         if (IgnoreFolders.has(name)) {
             continue;
         }

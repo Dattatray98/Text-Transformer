@@ -12,3 +12,15 @@ export const SummaryModel = async (Prompt: string) => {
 
     return response.response;
 };
+
+
+
+export const AgenticModel = async (prompt: any) => {
+    const response = await ollama.generate({
+        model: 'llama3',
+        prompt: prompt,
+        stream: false,
+    });
+
+    return response.response;
+};

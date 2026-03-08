@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { SummaryModel } from "../config/Model";
 import { WorkSpaceAssistant } from "../config/WorkSpaceAssistant";
+import { AssistantLoop } from "../services/AssistantLoop";
 
 export class ChatViewProvider implements vscode.WebviewViewProvider {
 
@@ -32,15 +33,15 @@ export class ChatViewProvider implements vscode.WebviewViewProvider {
 
     const htmlPath = path.join(webviewPath, "chat.html");
 
-    
+
     const cssUri = webview.asWebviewUri(
       vscode.Uri.file(path.join(webviewPath, "chat.css"))
     );
-    
+
     const jsUri = webview.asWebviewUri(
       vscode.Uri.file(path.join(webviewPath, "chat.js"))
     );
-    
+
     let html = fs.readFileSync(htmlPath, "utf8");
 
     html = html
@@ -54,7 +55,7 @@ export class ChatViewProvider implements vscode.WebviewViewProvider {
 
     const editor = vscode.window.activeTextEditor;
 
-    if(!editor){
+    if (!editor) {
       vscode.window.showInformationMessage("No active editor found.");
       return;
     }
@@ -67,9 +68,9 @@ export class ChatViewProvider implements vscode.WebviewViewProvider {
 
         const prompt = message.text;
 
-        const workspacePrompt:any = await WorkSpaceAssistant(prompt);
+        // const workspacePrompt: any = await AssistantLoop(prompt);
 
-        const response = await SummaryModel(workspacePrompt);
+        const response = await AssistantLoop(prompt);
 
         webview.postMessage({
           command: "response",
