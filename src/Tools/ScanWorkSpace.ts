@@ -28,14 +28,12 @@ interface FilePaths {
 }
 
 
-const ScannedPaths: FilePaths[] = [];
+const ScannedPaths: any[] = [];
 
 export const scanFolders = async () => {
     ScannedPaths.length = 0;
 
     const folders = vscode.workspace.workspaceFolders;
-
-    console.log("Started scanning");
     vscode.window.showInformationMessage("Started scanning workspace");
 
     if (!folders) {
@@ -47,12 +45,11 @@ export const scanFolders = async () => {
         await processFolders(folder.uri);
     }
 
-    console.log("Scanning completed");
-    console.log(ScannedPaths);
-
     vscode.window.showInformationMessage("Scanning completed. See results in console.");
 
     return ScannedPaths;
+
+
 };
 
 
@@ -80,9 +77,9 @@ const processFolders = async (uri: vscode.Uri) => {
                 continue;
             }
 
-            ScannedPaths.push({
-                path: childUri.fsPath
-            });
+            ScannedPaths.push(
+                childUri.fsPath
+            );
         }
     }
 };

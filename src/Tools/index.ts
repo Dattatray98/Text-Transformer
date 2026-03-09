@@ -1,14 +1,15 @@
 import { CreateEmbeddings, CreateQueryEmbeddings } from "../services/CreateEmbeddings";
-import { ScanWorkspace } from "../services/ScanDirectory";
-import { SearchChunks } from "../services/SearchChunks";
 import { ReadFileContent } from "./ReadFile";
-import { SearchRepo } from "./SearchRepo";
+import { scanFolders } from "./ScanWorkSpace";
+import { SearchInFile } from "./SearchInFile";
+import { SearchInVectorDB } from "./SearchInVectorDB";
 
 export const tools: any = {
-    Search_Repo : SearchRepo,
+    Search_In_File : SearchInFile,
     Read_file: ReadFileContent,
-    scan_workspace: ScanWorkspace,
+    scan_workspace: scanFolders,
     create_chunk_embeddings: CreateEmbeddings,
     create_query_embeddings: CreateQueryEmbeddings,
-    Search_chunk_in_VectorDatabase : SearchChunks,
+    Search_chunk_in_VectorDatabase : SearchInVectorDB,
+    
 };
