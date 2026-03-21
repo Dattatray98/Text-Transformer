@@ -13,4 +13,4 @@ export const SearchInVectorDB = async (input: string) => {
     const result = await table.search(queryVector).limit(5).toArray();
 
     return result;
-};
+};  

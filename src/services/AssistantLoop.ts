@@ -25,11 +25,12 @@ export const AssistantLoop = async (query: string) => {
         // if it is toolcall then handling with given conditions.
         if (toolCall) {
             const toolResult:any = await runTool(toolCall.tool, toolCall.input);
+            
             messages.push({
                 role: "assistant",
                 content: response,
             });
-
+            
             messages.push({
                 role: "system",
                 content: toolResult

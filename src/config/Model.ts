@@ -14,7 +14,6 @@ export const SummaryModel = async (Prompt: string) => {
 };
 
 
-
 export const AgenticModel = async (prompt: any) => {
     const response = await ollama.generate({
         model: 'qwen2.5-coder:7b',

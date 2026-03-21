@@ -10,10 +10,9 @@ export const parseToolCall = (response: string) => {
         if (parsed.tool && parsed.input !== undefined) {
             return parsed;
         }
-
+        
     } catch (error) {
         return null;
-
     }
 
     return null;

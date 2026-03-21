@@ -17,7 +17,6 @@ export const BuildContext = (results: any[]) => {
 };
 
 
-
 export const WorkSpaceAssistant = async (text: string) => {
     const db = await InitDatabase();
     const QueryEmbeddings: any = await CreateQueryEmbeddings(text);
